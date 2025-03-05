@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Docent Timesheet</title>
+    <style type="text/css">
+        body           {background-color:white;color:black;font-family:Verdana,sans-serif;font-size:12px}
+        a              {text-decoration:none;}
+        #menu          {width:100%;}
+        #menu li       {float:left; width:auto;}
+        #sidebar       {position:fixed;top:85px;bottom:10px;left:10px;width:200px;align-items:center;padding:5px;}
+        .no-close .ui-dialog-titlebar-close {display: none;}
+    </style>
+    <link type="image/x-icon" rel="apple-touch-icon" href="docentlogo.ico" />
+    <link type="image/x-icon" rel="icon" href="docentlogo.ico" />
+    <link type="image/x-icon" rel="shortcut icon" href="docentlogo.ico" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/eggplant/jquery-ui.css" />
+    
+    <script   src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"   integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI="   crossorigin="anonymous"></script>
+    <script   src="https://code.jquery.com/jquery-3.7.1.min.js"   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="   crossorigin="anonymous"></script>
+    <!--script   src="https://code.jquery.com/jquery-3.7.1.slim.min.js"   integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="   crossorigin="anonymous"></script-->
+  </head>
+  <body>
+    <div class="ui-widget-header" style="position:fixed;height:75px;top:0;left:0;right:0;">
+        <img src="owlonly.png" style="height:75px"/>
+        <div style="position:fixed;height:25px;top:0;left:100px;font-weight:bold;font-size:18px">
+            Welcome Home<br />
+            <div id="clock"></div>
+        </div>
+        
+    </div>  
+    <div id="divPortal" style="position:absolute;left:0;right:0;bottom:0;top:80px">
+      <div id="pCalendar1" title="Calendar">
+        <iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;mode=AGENDA&amp;showDate=0&amp;showPrint=1&amp;showCalendars=0&amp;showTz=0&amp;height=150&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=pzgdocents%40gmail.com&amp;color=%23EEE8CD&amp;ctz=America%2FNew_York" style="border-width:0;width:400px;height:210px;margin:0"></iframe>
+      </div>
+      <div id="pCalendar2" title="Calendar">
+        <iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;mode=AGENDA&amp;showDate=0&amp;showPrint=1&amp;showCalendars=0&amp;showTz=0&amp;height=150&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=pzgdocents%40gmail.com&amp;color=%23EEE8CD&amp;ctz=America%2FNew_York" style="border-width:0;width:400px;height:210px;margin:0"></iframe>
+      </div>
+      <div id="pCalendar3" title="Calendar">
+        <iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;mode=AGENDA&amp;showDate=0&amp;showPrint=1&amp;showCalendars=0&amp;showTz=0&amp;height=150&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=pzgdocents%40gmail.com&amp;color=%23EEE8CD&amp;ctz=America%2FNew_York" style="border-width:0;width:400px;height:210px;margin:0"></iframe>
+      </div>
+    </div>
+
+    <script>
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      let seconds = now.getSeconds();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      seconds = seconds < 10 ? '0'+seconds : seconds;
+      const time = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+      document.getElementById('clock').textContent = time;
+      setTimeout(updateClock, 1000);
+    }
+
+    $(function () {
+        $(".ui-button").button();
+        hh = ($("#divPortal").height() * 0.5) - 10;
+        tw = ($("#divPortal").width() * 0.5);
+    
+        $("#pCalendar1").dialog(     { autoOpen: true, dialogClass: "no-close", resizable: false, draggable: false, width: tw, height: hh, position: { my: "left top",   at: "left+5 top+5",     of: divPortal } });
+        $("#pCalendar2").dialog(     { autoOpen: true, dialogClass: "no-close", resizable: false, draggable: false, width: tw, height: hh, position: { my: "left bottom", at: "left+5 bottom-5",     of: divPortal } });
+        $("#pCalendar3").dialog(     { autoOpen: true, dialogClass: "no-close", resizable: false, draggable: false, width: tw, height: hh, position: { my: "right top", at: "right-5 top+5",     of: divPortal } });
+
+        updateClock();
+    });
+
+
+
+        </script>
+  </body>
+</html>
